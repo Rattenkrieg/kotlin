@@ -7,6 +7,7 @@ package org.jetbrains.kotlin.resolve.descriptorUtil
 
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.TypeParameterDescriptor
+import org.jetbrains.kotlin.descriptors.ValueParameterDescriptor
 import org.jetbrains.kotlin.descriptors.annotations.AnnotationDescriptor
 import org.jetbrains.kotlin.descriptors.annotations.Annotations
 import org.jetbrains.kotlin.name.FqName
@@ -19,6 +20,7 @@ private val LOW_PRIORITY_IN_OVERLOAD_RESOLUTION_FQ_NAME = FqName("kotlin.interna
 private val HIDES_MEMBERS_ANNOTATION_FQ_NAME = FqName("kotlin.internal.HidesMembers")
 private val ONLY_INPUT_TYPES_FQ_NAME = FqName("kotlin.internal.OnlyInputTypes")
 private val DYNAMIC_EXTENSION_FQ_NAME = FqName("kotlin.internal.DynamicExtension")
+private val EXPERIMENTAL_BUILDER_INFERENCE_ANNOTATION_FQ_NAME = FqName("kotlin.ExperimentalBuilderInference")
 
 // @HidesMembers annotation only has effect for members with these names
 val HIDES_MEMBERS_NAME_LIST = setOf(Name.identifier("forEach"))
@@ -38,6 +40,9 @@ fun CallableDescriptor.hasHidesMembersAnnotation(): Boolean = annotations.hasAnn
 fun CallableDescriptor.hasDynamicExtensionAnnotation(): Boolean = annotations.hasAnnotation(DYNAMIC_EXTENSION_FQ_NAME)
 
 fun TypeParameterDescriptor.hasOnlyInputTypesAnnotation(): Boolean = annotations.hasAnnotation(ONLY_INPUT_TYPES_FQ_NAME)
+
+fun ValueParameterDescriptor.hasExperimentalBuilderInferenceAnnotation(): Boolean =
+    annotations.hasAnnotation(EXPERIMENTAL_BUILDER_INFERENCE_ANNOTATION_FQ_NAME)
 
 fun getExactInAnnotations(): Annotations = AnnotationsWithOnly(EXACT_ANNOTATION_FQ_NAME)
 

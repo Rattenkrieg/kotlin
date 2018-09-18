@@ -31,6 +31,7 @@ import org.jetbrains.kotlin.resolve.calls.model.isReallySuccess
 import org.jetbrains.kotlin.resolve.calls.results.OverloadResolutionResultsImpl
 import org.jetbrains.kotlin.resolve.calls.tasks.TracingStrategy
 import org.jetbrains.kotlin.resolve.descriptorUtil.builtIns
+import org.jetbrains.kotlin.resolve.descriptorUtil.hasExperimentalBuilderInferenceAnnotation
 import org.jetbrains.kotlin.resolve.scopes.receivers.ReceiverValue
 import org.jetbrains.kotlin.types.*
 import org.jetbrains.kotlin.types.TypeUtils.NO_EXPECTED_TYPE
@@ -261,10 +262,10 @@ class CoroutineInferenceSupport(
 }
 
 fun isCoroutineCallWithAdditionalInference(parameterDescriptor: ValueParameterDescriptor, argument: ValueArgument) =
-    parameterDescriptor.hasSuspendFunctionType &&
+    parameterDescriptor.hasExperimentalBuilderInferenceAnnotation() &&
+            parameterDescriptor.hasSuspendFunctionType &&
             argument.getArgumentExpression() is KtLambdaExpression &&
             parameterDescriptor.type.let { it.isBuiltinFunctionalType && it.getReceiverTypeFromFunctionType() != null }
-
 
 fun OverloadResolutionResultsImpl<*>.isResultWithCoroutineInference() = getCoroutineInferenceData() != null
 
