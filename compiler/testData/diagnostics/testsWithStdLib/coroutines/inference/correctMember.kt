@@ -1,5 +1,13 @@
 // !DIAGNOSTICS: -UNUSED_EXPRESSION -UNUSED_PARAMETER -UNUSED_VARIABLE
 
+// FILE: annotation.kt
+
+package kotlin
+
+annotation class ExperimentalBuilderInference
+
+// FILE: test.kt
+
 interface Controller<T> {
     suspend fun yield(t: T) {}
 
@@ -8,7 +16,7 @@ interface Controller<T> {
     fun <Z> generidFun(t: Z) = t
 }
 
-fun <S> generate(g: suspend Controller<S>.() -> Unit): S = TODO()
+fun <S> generate(@ExperimentalBuilderInference g: suspend Controller<S>.() -> Unit): S = TODO()
 
 val test1 = generate {
     yield(justString())

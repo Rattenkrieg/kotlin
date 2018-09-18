@@ -2,13 +2,22 @@
 // !WITH_NEW_INFERENCE
 // NI_EXPECTED_FILE
 
+// FILE: annotation.kt
+
+package kotlin
+
+annotation class ExperimentalBuilderInference
+
+// FILE: test.kt
+
+
 class GenericController<T> {
     suspend fun yield(t: T) {}
 }
 
-fun <S> generate(g: suspend GenericController<S>.() -> Unit): List<S> = TODO()
+fun <S> generate(@ExperimentalBuilderInference g: suspend GenericController<S>.() -> Unit): List<S> = TODO()
 
-suspend fun <S> GenericController<List<S>>.yieldGenerate(g: suspend GenericController<S>.() -> Unit): Unit = TODO()
+suspend fun <S> GenericController<List<S>>.yieldGenerate(@ExperimentalBuilderInference g: suspend GenericController<S>.() -> Unit): Unit = TODO()
 
 val test1 = generate {
     // TODO: KT-15185

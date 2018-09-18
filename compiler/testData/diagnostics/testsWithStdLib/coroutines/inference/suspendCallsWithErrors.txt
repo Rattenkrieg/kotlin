@@ -4,7 +4,7 @@ public val test1: [ERROR : Type for generate {
     yield(A)
 }]
 public val test2: kotlin.Int
-public fun </*0*/ S> generate(/*0*/ g: suspend Controller<S>.() -> kotlin.Unit): S
+public fun </*0*/ S> generate(/*0*/ @kotlin.ExperimentalBuilderInference g: suspend Controller<S>.() -> kotlin.Unit): S
 
 public final class A {
     public constructor A()
@@ -19,4 +19,14 @@ public final class Controller</*0*/ T> {
     public open override /*1*/ /*fake_override*/ fun hashCode(): kotlin.Int
     public open override /*1*/ /*fake_override*/ fun toString(): kotlin.String
     public final suspend fun yield(/*0*/ t: T): kotlin.Unit
+}
+
+package kotlin {
+
+    public final annotation class ExperimentalBuilderInference : kotlin.Annotation {
+        public constructor ExperimentalBuilderInference()
+        public open override /*1*/ /*fake_override*/ fun equals(/*0*/ other: kotlin.Any?): kotlin.Boolean
+        public open override /*1*/ /*fake_override*/ fun hashCode(): kotlin.Int
+        public open override /*1*/ /*fake_override*/ fun toString(): kotlin.String
+    }
 }

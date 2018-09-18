@@ -1,12 +1,20 @@
 // !DIAGNOSTICS: -UNUSED_EXPRESSION -UNUSED_PARAMETER -UNUSED_VARIABLE
 
+// FILE: annotation.kt
+
+package kotlin
+
+annotation class ExperimentalBuilderInference
+
+// FILE: test.kt
+
 class GenericController<T> {
     suspend fun yield(t: T) {}
 }
 
 suspend fun <K> GenericController<K>.yieldAll(s: Collection<K>) {}
 
-fun <S> generate(g: suspend GenericController<S>.() -> Unit): S = TODO()
+fun <S> generate(@ExperimentalBuilderInference g: suspend GenericController<S>.() -> Unit): S = TODO()
 
 val test1 = generate {
     yield(4)

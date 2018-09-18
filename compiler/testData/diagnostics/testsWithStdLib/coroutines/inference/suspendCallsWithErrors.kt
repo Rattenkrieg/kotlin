@@ -2,11 +2,19 @@
 // !WITH_NEW_INFERENCE
 // NI_EXPECTED_FILE
 
+// FILE: annotation.kt
+
+package kotlin
+
+annotation class ExperimentalBuilderInference
+
+// FILE: test.kt
+
 class Controller<T> {
     suspend fun yield(t: T) {}
 }
 
-fun <S> generate(g: suspend Controller<S>.() -> Unit): S = TODO()
+fun <S> generate(@ExperimentalBuilderInference g: suspend Controller<S>.() -> Unit): S = TODO()
 
 class A
 

@@ -1,5 +1,14 @@
 // COMMON_COROUTINES_TEST
 // SKIP_TXT
+
+// FILE: annotation.kt
+
+package kotlin
+
+annotation class ExperimentalBuilderInference
+
+// FILE: test.kt
+
 @COROUTINES_PACKAGE.RestrictsSuspension
 class RestrictedController<T> {
     suspend fun yield(<!UNUSED_PARAMETER!>x<!>: T) {}
@@ -21,7 +30,7 @@ class RestrictedController<T> {
     }
 }
 
-fun <T> buildSequence(<!UNUSED_PARAMETER!>c<!>: suspend RestrictedController<T>.() -> Unit) {}
+fun <T> buildSequence(@ExperimentalBuilderInference <!UNUSED_PARAMETER!>c<!>: suspend RestrictedController<T>.() -> Unit) {}
 suspend fun <T> RestrictedController<T>.yield2(<!UNUSED_PARAMETER!>x<!>: T) {}
 
 fun test() {
